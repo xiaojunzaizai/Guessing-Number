@@ -45,8 +45,24 @@ def BtGuess(event):
                 else:
                     count +=1
                     label_content('您输入的数字不在范围内：')
+        
     else:
         label_content('您已经猜对了')
+
+def try_again(event):
+    global number 
+    global running 
+    global count 
+    global number_max 
+    global number_min 
+
+    number = random.randint(0,1000)
+    running = True
+    count = 0
+    number_max = 1000
+    number_min = 0
+    entry_guess.delete(0,'end')
+    label_content('以重置，请开始：')
 
 def num_guess():
     if count == 1:
@@ -67,17 +83,22 @@ if __name__ == "__main__":
     label_message = tk.Label(root,width='80',font= ft)
     label_message.pack(side = 'top')
     #输入部分
-    entry_guess = tk.Entry(root,width='30')
+    entry_guess = tk.Entry(root,width='25')
     entry_guess.pack(side='left')
     entry_guess.bind('<Return>',BtGuess)
     #按钮部分
     bt_guess= tk.Button(root,text='Guess',width='5')
     bt_guess.bind('<Button-1>',BtGuess)
-    bt_guess.place(x=285,y=47)
+    bt_guess.place(x=240,y=47)
 
     bt_close = tk.Button(root,text='Quit',width='5')
     bt_close.bind('<Button-1>',BtClose)
     bt_close.place(x=340,y=47)
+
+    bt_retry = tk.Button(root,text = 'Retry',width = '5')
+    bt_retry.bind('<Button-1>',try_again)
+    bt_retry.place(x = 290,y = 47)
+    
     label_content('请输入0-1000之间的任意整数： ')
     entry_guess.focus_set()
     root.mainloop()
